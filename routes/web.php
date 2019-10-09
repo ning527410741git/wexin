@@ -37,9 +37,7 @@ Route::get('/', function () {
 	Route::any('/ajaxadd_do',"Index\Ajaxindex@ajaxadd_do");
 	Route::any('/ajaxselect',"Index\Ajaxindex@ajaxselect");
 	Route::any('/ajaxdel',"Index\Ajaxindex@ajaxdel");
-	// 测试
-	Route::any('/addstre',"Index\Ajaxindex@addstre");
-	Route::any('/wexinlist',"Index\Ajaxindex@wexinlist");
+	
 
 
 	// 注册
@@ -125,3 +123,10 @@ Route::any('/daleteso',"Index\Zsgc@daleteso");
 Route::any('/updateso',"Index\Zsgc@updateso");
 // 执行修改
 Route::any('/updateso_do',"Index\Zsgc@updateso_do");
+// 微信测试
+// 获取access_token授权
+Route::any('/wexin',"Index\Ajaxindex@wexin");
+// 用户详情
+Route::any('/wexinlist',"Index\Ajaxindex@wexinlist");
+
+

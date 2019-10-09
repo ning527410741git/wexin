@@ -48,7 +48,7 @@ class Ajaxindex extends Controller
         }
     }
 
-    public function addstre(){
+    public function wexin(){
       $key='wechat_access_token';
       if (Cache::has($key)) {
         // 取缓存
@@ -68,7 +68,7 @@ class Ajaxindex extends Controller
     }
 
     public function wexinlist(){
-        $token=$this->addstre();
+        $token=$this->wexin();
         $data=file_get_contents('https://api.weixin.qq.com/cgi-bin/user/get?access_token='.$token.'&next_openid=');
         $user=json_decode($data,1);
 
