@@ -37,6 +37,9 @@ Route::get('/', function () {
 	Route::any('/ajaxadd_do',"Index\Ajaxindex@ajaxadd_do");
 	Route::any('/ajaxselect',"Index\Ajaxindex@ajaxselect");
 	Route::any('/ajaxdel',"Index\Ajaxindex@ajaxdel");
+	// 测试
+	Route::any('/addstre',"Index\Ajaxindex@addstre");
+	Route::any('/wexinlist',"Index\Ajaxindex@wexinlist");
 
 
 	// 注册
