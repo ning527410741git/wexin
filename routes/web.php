@@ -128,5 +128,13 @@ Route::any('/updateso_do',"Index\Zsgc@updateso_do");
 Route::any('/wexin',"Index\Ajaxindex@wexin");
 // 用户详情
 Route::any('/wexinlist',"Index\Ajaxindex@wexinlist");
+// 网路授权
+Route::any('/author',"Index\Ajaxindex@author");
+Route::any('/getUserInfo',"Index\Ajaxindex@getUserInfo");
+// Route::any('/favicon.ico',"Index\Ajaxindex@favicon.ico");
+// git请求
+Route::any('/curl_get',"Index\Ajaxindex@curl_get");
 
-
+// post请求
+Route::any('/curl_post',"Index\Ajaxindex@curl_post");
+Route::any('/post_test',"Index\Ajaxindex@post_test");

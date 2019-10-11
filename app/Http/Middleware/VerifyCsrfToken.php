@@ -25,6 +25,8 @@ class VerifyCsrfToken extends Middleware
         '/loginsadd',
 
         // 加入购物车
-        '/goods_cart'
+        '/goods_cart',
+        // post请求
+        "post/test"
     ];
 }

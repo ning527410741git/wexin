@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Index;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Ajaxe;
+use App\Models\Userwechat;
+use App\Models\Indexuser;
 use Cache;
 
 class Ajaxindex extends Controller
@@ -48,6 +50,11 @@ class Ajaxindex extends Controller
         }
     }
 
+
+
+
+    // 微信测试
+// 获取access_token授权
     public function wexin(){
       $key='wechat_access_token';
       if (Cache::has($key)) {
@@ -55,7 +62,7 @@ class Ajaxindex extends Controller
         $wechat_access_token=Cache::get($key);
         // dd($wechat_access_token);
       }else{
-        // 取不到调接口 取缓存
+        // 取不到 调接口 取缓存
         $re=file_get_contents('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wxff842daa19066eae&secret=0a273b94c3b8b99f7db9e6402f9b3832');
         // dd($re);
         $resurl=json_decode($re,1);
@@ -67,6 +74,8 @@ class Ajaxindex extends Controller
       return $wechat_access_token;
     }
 
+
+    // 调用接口获得的微信详情页
     public function wexinlist(){
         $token=$this->wexin();
         $data=file_get_contents('https://api.weixin.qq.com/cgi-bin/user/get?access_token='.$token.'&next_openid=');
@@ -84,4 +93,87 @@ class Ajaxindex extends Controller
         return view('index.ajax.wexinlist',['dtinfo'=>$dtinfo]);
     }
 
+
+        
+    // 网路授权
+    public function author(){
+        $appid='wxff842daa19066eae';
+        $redirect_uri=urlencode(env('APP_URL').'/getUserInfo');
+        $url="https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$redirect_uri&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+        // dd($url);
+        header("Location:".$url);
+    }
+
+    public function getUserInfo(Request $request){
+       $data=$request->all();
+       // dd($data);
+       $appid='wxff842daa19066eae';
+       $secret="0a273b94c3b8b99f7db9e6402f9b3832";
+       $code=$_GET["code"];
+       $url="https://api.weixin.qq.com/sns/oauth2/access_token?appid=$appid&secret=$secret&code=$code&grant_type=authorization_code";
+       $res=file_get_contents($url);
+       // dd($res);
+       $resutl=json_decode($res,1);
+       // dd($resutl);
+       // print_r($resutl);
+       $user_wechat=Userwechat::where(['openid'=>$resutl['openid']])->first();
+       // dd($user_wechat);
+       if (!empty($user_wechat)) {
+        // 登陆
+           $request->session()->put('user_id',$user_wechat->user_id);
+           echo 'ok';
+       }else{
+             // 注册
+             \DB::connection('mysql')->beginTransaction(); //开启事务
+             $user_id=Indexuser::insertGetId([
+                  'user_name'=>rand(1000,9999).time(),
+                    'user_pwd'=>'',
+                    'reg_time'=>time()
+                ]);
+             $insert_wechat=Userwechat::insert([
+                    'user_id'=>$user_id,
+                    'openid'=>$resutl['openid'],
+                ]);
+                if ($user_id && $insert_wechat) {
+                    // 登陆
+                    $request->session()->put('user_id',$user_id);
+                    \DB::connection('mysql')->commit();
+                }else{
+                    \DB::connection('mysql')->rollback();
+                    dd('添加信息错误');
+                }
+        }
+
+            return redirect('/index');
+    }
+
+    // get请求
+    public function curl_get($url)
+    {
+        $curl = curl_init($url);
+        curl_setopt($curl,CURLOPT_RETURNTRANSFER,true);
+        curl_setopt($curl,CURLOPT_SSL_VERIFYPEER,false);
+        curl_setopt($curl,CURLOPT_SSL_VERIFYHOST,false);
+        $result = curl_exec($curl);
+        curl_close($curl);
+        return $result;
+    }
+
+
+    // post请求
+     public function curl_post($url,$data)
+    {
+        $curl = curl_init($url);
+        curl_setopt($curl,CURLOPT_RETURNTRANSFER,true);
+        curl_setopt($curl,CURLOPT_SSL_VERIFYPEER,false);
+        curl_setopt($curl,CURLOPT_SSL_VERIFYHOST,false);
+        curl_setopt($curl,CURLOPT_POST,true);
+        curl_setopt($curl,CURLOPT_POSTFIELDS,$data);
+        $result = curl_exec($curl);
+        curl_close($curl);
+        return $result;
+    }
+
+   
+  
 }
