@@ -138,3 +138,17 @@ Route::any('/curl_get',"Index\Ajaxindex@curl_get");
 // post请求
 Route::any('/curl_post',"Index\Ajaxindex@curl_post");
 Route::any('/post_test',"Index\Ajaxindex@post_test");
+// 标签
+// 增删改查
+Route::any('/tagList',"Index\TagController@tagList");
+Route::any('/addTag',"Index\TagController@addTag");
+Route::any('/do_addTag',"Index\TagController@do_addTag");
+Route::any('/tagdal',"Index\TagController@tagdal");
+Route::any('/tagupdate',"Index\TagController@tagupdate");
+Route::any('/tagupdate_do',"Index\TagController@tagupdate_do");
+Route::any('/tag_user',"Index\TagController@tag_user");//给用户打标签
+Route::any('/user_tag',"Index\Ajaxindex@user_tag");//查看粉丝身上的标签
+
+Route::any('/event',"Index\EventController@event");
+
+Route::any('/pushTag',"Index\TagController@pushTag");

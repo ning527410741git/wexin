@@ -7,13 +7,21 @@ use App\Http\Controllers\Controller;
 use App\Models\Ajaxe;
 use App\Models\Userwechat;
 use App\Models\Indexuser;
+use App\Tools\Tools;
 use Cache;
 
 class Ajaxindex extends Controller
 {
+    public $tools;
+    public function __construct(Tools $tools)
+    {
+           $this->tools = $tools;
+    }
+
     public function ajaxadd(Request $request){
     	return view('index.ajax.ajaxadd');
     }
+
 
     public function ajaxadd_do(Request $request){
     	$data=$request->except('_token');
@@ -53,6 +61,8 @@ class Ajaxindex extends Controller
 
 
 
+
+
     // 微信测试
 // 获取access_token授权
     public function wexin(){
@@ -76,7 +86,7 @@ class Ajaxindex extends Controller
 
 
     // 调用接口获得的微信详情页
-    public function wexinlist(){
+    public function wexinlist(Request $request){
         $token=$this->wexin();
         $data=file_get_contents('https://api.weixin.qq.com/cgi-bin/user/get?access_token='.$token.'&next_openid=');
         $user=json_decode($data,1);
@@ -90,9 +100,30 @@ class Ajaxindex extends Controller
         }
         // dd($dt);
 
-        return view('index.ajax.wexinlist',['dtinfo'=>$dtinfo]);
+        return view('index.ajax.wexinlist',['dtinfo'=>$dtinfo,'tag_id'=>$request->input('tag_id')]);
     }
 
+
+        // 查看用户标签
+    public function user_tag(Request $request){
+      $req=$request->all();
+      // dd($req);
+      $url="https://api.weixin.qq.com/cgi-bin/tags/getidlist?access_token=".$this->tools->get_access_token();
+      $data=[
+            'openid'=>$req['openid']
+        ];
+      $re=$this->tools->curl_post($url,json_encode($data,JSON_UNESCAPED_UNICODE));
+      $resuel=json_decode($re,1);
+      $tagList=$this->tools->tagList()['tags'];
+      foreach ($resuel['tagid_list'] as $v) {
+        foreach ($tagList as $vo) {
+          if ($v==$vo['id']) {
+            echo $vo['name']."<br>";
+          }
+        }
+      }
+      // dd($resuel);
+  }
 
         
     // 网路授权
@@ -172,8 +203,5 @@ class Ajaxindex extends Controller
         $result = curl_exec($curl);
         curl_close($curl);
         return $result;
-    }
-
-   
-  
+    } 
 }
