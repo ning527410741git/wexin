@@ -204,4 +204,31 @@ class Ajaxindex extends Controller
         curl_close($curl);
         return $result;
     } 
+
+    // 模板接口
+    public function push_template_msg(){
+        $url="https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=".$this->tools->get_access_token();
+        $data=[
+            "touser"=>'ovm570iKEhl3J6Xg5A0EAxSyGk9A',
+            "template_id"=>"h4Ff4Xj6PGSDVROjWiIU9vtx7nJXSrFFbdPERJ_utdw",
+            "data"=>[
+                   "first1"=>[
+                       "value"=>"帅哥",
+                       "color"=>""
+                        ]
+                   ],
+            "data"=>[
+                   "first2"=>[
+                       "value"=>"你真帅",
+                       "color"=>""
+                        ]
+                   ],
+        ];
+
+        $re=$this->tools->curl_post($url,json_encode($data,JSON_UNESCAPED_UNICODE));
+        $resuel=json_decode($re,1);
+        dd($resuel);
+
+    }
+
 }

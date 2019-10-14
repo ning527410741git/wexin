@@ -148,6 +148,10 @@ Route::any('/tagupdate',"Index\TagController@tagupdate");
 Route::any('/tagupdate_do',"Index\TagController@tagupdate_do");
 Route::any('/tag_user',"Index\TagController@tag_user");//给用户打标签
 Route::any('/user_tag',"Index\Ajaxindex@user_tag");//查看粉丝身上的标签
+Route::any('/push_tag_mag',"Index\TagController@push_tag_mag");//发消息
+Route::any('/push_template_msg',"Index\Ajaxindex@push_template_msg");//模板接口
+
+
 
 Route::any('/event',"Index\EventController@event");
 

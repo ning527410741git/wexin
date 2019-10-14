@@ -21,6 +21,7 @@
 				<a href="{{ url('tagdal') }}?tag_id={{ $v['id'] }}">删除</a>
 				<a href="{{ url('tagupdate') }}?tag_id={{ $v['id'] }}&&tag_name={{ $v['name'] }}"">修改</a>
 				<a href="{{ url('wexinlist') }}?tag_id={{ $v['id'] }}">给用户打标签</a>
+				<a href="{{ url('push_tag_mag') }}?tag_id={{ $v['id'] }}">发信息</a>
 			</td>
 		</tr>
 		@endforeach
