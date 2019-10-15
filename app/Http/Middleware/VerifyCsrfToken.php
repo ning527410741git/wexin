@@ -27,6 +27,8 @@ class VerifyCsrfToken extends Middleware
         // 加入购物车
         '/goods_cart',
         // post请求
-        "post/test"
+        "post/test",
+        // 微信消息
+        "/event"
     ];
 }
