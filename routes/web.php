@@ -152,7 +152,10 @@ Route::any('/push_tag_mag',"Index\TagController@push_tag_mag");//发消息
 Route::any('/push_template_msg',"Index\Ajaxindex@push_template_msg");//模板接口
 
 
+// 素材管理
+Route::any('/uploads',"Index\ResourceController@uploads");
+Route::any('/do_upload',"Index\ResourceController@do_upload");
 
-Route::any('/event',"Index\EventController@event");
+Route::any('/event',"Index\EventController@event");//日志
 
 Route::any('/pushTag',"Index\TagController@pushTag");
