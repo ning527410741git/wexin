@@ -48,7 +48,7 @@ class MenuController extends Controller
         dd($result);
     }
 
-    public function ddd(){
+    public function ccc(){
     	echo 1;
     }
 
