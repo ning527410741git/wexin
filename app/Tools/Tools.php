@@ -24,16 +24,12 @@
     }
 
     // 素材管理
-    public function wechat_curl_file($url,$path){
+    public function wechat_curl_file($url,$data){
          $curl = curl_init($url);
         curl_setopt($curl,CURLOPT_RETURNTRANSFER,true);
         curl_setopt($curl,CURLOPT_SSL_VERIFYPEER,false);
         curl_setopt($curl,CURLOPT_SSL_VERIFYHOST,false);
         curl_setopt($curl,CURLOPT_POST,true);
-        $data=[
-            'meida'=>new \CURLFile(realpath($path)),
-        ];
-
         curl_setopt($curl,CURLOPT_POSTFIELDS,$data);
         $result = curl_exec($curl);
         curl_close($curl);

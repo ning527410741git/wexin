@@ -153,9 +153,19 @@ Route::any('/push_template_msg',"Index\Ajaxindex@push_template_msg");//模板接
 
 
 // 素材管理
-Route::any('/uploads',"Index\ResourceController@uploads");
-Route::any('/do_upload',"Index\ResourceController@do_upload");
+//素材列表
+Route::any('/uploads',"Index\ResourceController@uploads");//添加
+Route::any('/do_upload',"Index\ResourceController@do_upload");//执行添加
+Route::any('/source_list',"Index\ResourceController@source_list");//展示
+Route::any('/download',"Index\ResourceController@download");//下载资源
+
+// 清零
+Route::any('/clear_api',"Index\ResourceController@clear_api");//添加
 
 Route::any('/event',"Index\EventController@event");//日志
 
 Route::any('/pushTag',"Index\TagController@pushTag");
+
+// 自定义菜单
+Route::any('/load_menu',"Index\MenuController@load_menu");
+Route::any('/do_load_menu',"Index\MenuController@do_load_menu");

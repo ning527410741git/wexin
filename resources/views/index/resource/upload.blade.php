@@ -5,6 +5,7 @@
 	<title>Document</title>
 </head>
 <body>
+	<a href="/source_list">素材列表</a>
 	<form action="/do_upload" method="post" enctype="multipart/form-data">
 	@csrf
 		类型:<select name="type" id="">
