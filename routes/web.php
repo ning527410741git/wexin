@@ -171,4 +171,6 @@ Route::any('/load_menu',"Index\MenuController@load_menu");
 Route::any('/do_load_menu',"Index\MenuController@do_load_menu");
 
 
-Route::any('/arrr',"Index\MenuController@arrr");
+Route::any('/addwech',"Index\MenuController@addwech");
+
+
