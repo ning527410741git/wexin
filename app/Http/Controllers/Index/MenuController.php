@@ -48,7 +48,7 @@ class MenuController extends Controller
         dd($result);
     }
 
-    public function addwech(){
+    public function aaa(){
     	echo 1;
     }
 
