@@ -169,3 +169,6 @@ Route::any('/pushTag',"Index\TagController@pushTag");
 // 自定义菜单
 Route::any('/load_menu',"Index\MenuController@load_menu");
 Route::any('/do_load_menu',"Index\MenuController@do_load_menu");
+
+
+Route::any('/arrr',"Index\MenuController@arrr");

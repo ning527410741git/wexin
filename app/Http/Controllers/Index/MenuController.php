@@ -48,5 +48,9 @@ class MenuController extends Controller
         dd($result);
     }
 
+    public function arrr(){
+    	echo 1;
+    }
+
   
 }
