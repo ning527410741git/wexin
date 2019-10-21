@@ -33,7 +33,7 @@ class EventController extends Controller
         	
             $media_id="3SldExvZbrAw7mxtTLHcbsohYat_TT4ZtZPJzDFcvHZ7ABQKhNDsd5VgLzOIWPAH";
 
-            echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[image]]></MsgType><Image><MediaId><![CDATA[".$media_id."]]></MediaId></Image></xml>";
+            
 
         }
     }
