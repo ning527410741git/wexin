@@ -28,6 +28,7 @@
 			<td>{{ date('Y-m-d H:i:s',$v['subscribe_time']) }}</td>
 			<td>
 				<a href="{{ url('user_tag') }}?openid={{$v['openid']}}">查看用户标签</a>
+				<a href="{{ url('push_template_msg') }}?openid={{$v['openid']}}">用户发消息</a>
 			</td>
 		</tr>
 	@endforeach

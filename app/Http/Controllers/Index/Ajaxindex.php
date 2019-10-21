@@ -175,7 +175,7 @@ class Ajaxindex extends Controller
                 }
         }
 
-            return redirect('/index');
+            return redirect('/wexinlist');
     }
 
     // get请求
@@ -206,7 +206,9 @@ class Ajaxindex extends Controller
     } 
 
     // 模板接口
-    public function push_template_msg(){
+    public function push_template_msg(Request $request){
+      // $req=$request->all();
+
         $url="https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=".$this->tools->get_access_token();
         $data=[
             "touser"=>'ovm570iKEhl3J6Xg5A0EAxSyGk9A',

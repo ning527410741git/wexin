@@ -4,16 +4,17 @@ namespace App\Http\Controllers\Index;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Tools\Tools;
 use App\Models\Resource;
 use Illuminate\Support\Facades\Storage;
+use App\Tools\Tools;
 class ResourceController extends Controller
 {
-	 public $tools;
-	 public $request;
+
+     public $tools;
+     public $request;
     public function __construct(Tools $tools,Request $request)
     {
-    		$this->request=$request;
+        $this->request=$request;
            $this->tools = $tools;
     }
 

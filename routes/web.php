@@ -167,10 +167,11 @@ Route::any('/event',"Index\EventController@event");//日志
 Route::any('/pushTag',"Index\TagController@pushTag");
 
 // 自定义菜单
+// 刷新菜单
 Route::any('/load_menu',"Index\MenuController@load_menu");
-Route::any('/do_load_menu',"Index\MenuController@do_load_menu");
-
-
-Route::any('/ccc',"Index\MenuController@ccc");
+// 自定义菜单添加
+Route::any('/create_menu',"Index\MenuController@create_menu");
+// 自定义菜单列表
+Route::any('/menu_list',"Index\MenuController@menu_list");
 
 
