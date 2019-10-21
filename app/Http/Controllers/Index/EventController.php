@@ -31,9 +31,9 @@ class EventController extends Controller
 		//普通消息
         if($xml_arr['MsgType']=='text' && $xml_arr['Content']=="111"){
         	
-            $media_id="3SldExvZbrAw7mxtTLHcbsohYat_TT4ZtZPJzDFcvHZ7ABQKhNDsd5VgLzOIWPAH";
+            $media_id="NxMp1rpGmAmkRZe4psA49-HnNN2frl-ENJkvSmZZgM8";
 
-            
+            echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[image]]></MsgType><Image><MediaId><![CDATA[".$media_id."]]></MediaId></Image></xml>";
 
         }
     }
