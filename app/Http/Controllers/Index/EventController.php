@@ -22,7 +22,7 @@ class EventController extends Controller
         file_put_contents(storage_path('logs/wexin/'.date('Y-m-d').'.log'),$info,FILE_APPEND);
         $xml_obj = simplexml_load_string($info,'SimpleXMLElement',LIBXML_NOCDATA);
         $xml_arr = (array)$xml_obj;
-        // dd($xml_arr);
+        dd($xml_arr);
         // 关注操作
       if($xml_arr['MsgType']=='event' && $xml_arr['Event']=='subscribe'){
             $nickname=$this->tools->get_wechat_user($xml_arr['FromUserName']);
