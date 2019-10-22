@@ -173,5 +173,8 @@ Route::any('/load_menu',"Index\MenuController@load_menu");
 Route::any('/create_menu',"Index\MenuController@create_menu");
 // 自定义菜单列表
 Route::any('/menu_list',"Index\MenuController@menu_list");
+// 带参数的二维码
+Route::any('/wechat_list',"Index\Ajaxindex@wechat_list");
+Route::any('/create_qrcode',"Index\Ajaxindex@create_qrcode");
 
 

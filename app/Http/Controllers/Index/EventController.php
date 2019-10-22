@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Tools\Tools;
 use App\Models\Userwechat;
+use App\Models\Openid;
+use App\Models\User;
 
 class EventController extends Controller
 {
@@ -25,6 +27,30 @@ class EventController extends Controller
         $xml_arr = (array)$xml_obj;
         // 关注操作
       if($xml_arr['MsgType']=='event' && $xml_arr['Event']=='subscribe'){
+             //判断openid表是否有当前openid
+             $openid_info=Openid::where(['openid'=>$xml_arr['FromUserName']])->first();
+             if (empty($openid_info)) {
+                 // 首次关注
+                  if(isset($xml_arr['Ticket'])){
+                    //带参数
+                    $share_code = explode('_',$xml_arr['EventKey'])[1];
+                    Openid::insert([
+                        'uid'=>$share_code,
+                        'openid'=>$xml_arr['FromUserName'],
+                        'subscribe'=>1
+                    ]);
+                    User::where(['id'=>$share_code])->increment('share_num',1); //加业绩
+                }else{
+                    //普通关注
+                    Openid::insert([
+                        'uid'=>0,
+                        'openid'=>$xml_arr['FromUserName'],
+                        'subscribe'=>1
+                    ]);
+                }
+            }
+
+
             $nickname=$this->tools->get_wechat_user($xml_arr['FromUserName']);
             $msg="你好".$nickname['nickname'].",欢迎来到！";
             echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";

@@ -9,12 +9,16 @@ use App\Models\Userwechat;
 use App\Models\Indexuser;
 use App\Tools\Tools;
 use Cache;
+use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 class Ajaxindex extends Controller
 {
-    public $tools;
-    public function __construct(Tools $tools)
+     public $tools;
+   public $request;
+    public function __construct(Tools $tools,Request $request)
     {
+        $this->request=$request;
            $this->tools = $tools;
     }
 
@@ -230,6 +234,44 @@ class Ajaxindex extends Controller
         $re=$this->tools->curl_post($url,json_encode($data,JSON_UNESCAPED_UNICODE));
         $resuel=json_decode($re,1);
         dd($resuel);
+
+    }
+
+
+    // 带参数的二维码
+    public function wechat_list(){
+        $user_info=User::all();
+        return view("index.ajax.wechatList",['user_info'=>$user_info]);
+    }
+
+    public function create_qrcode(Request $request){
+      $req=$request->all();
+      // dd($req);
+      $url="https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=".$this->tools->get_access_token();
+      // {"expire_seconds": 604800, "action_name": "QR_SCENE", "action_info": {"scene": {"scene_id": 123}}}
+
+      $data=[
+          'expire_seconds'=>30 * 24 * 3600,
+          "action_name"=>"QR_SCENE",
+          'action_info'=>[
+            'scene'=>[
+              "scene_id"=>$req['uid']
+            ]
+
+          ],
+
+      ];
+
+      $re=$this->tools->curl_post($url,json_encode($data,JSON_UNESCAPED_UNICODE));
+      $result=json_decode($re,1);
+      $qrcode_url="https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=".$result['ticket'];
+      $qrcode_source=$this->tools->curl_get($qrcode_url);
+      $qrcode_name=$req['uid'].rand(10000,99999).'jpg';
+      Storage::put('wexin/qrcode/'.$qrcode_name,$qrcode_source);
+      User::where(['id'=>$req['uid']])->update([
+          'qrcode_url'=>'/storage/wexin/qrcode/'.$qrcode_name,
+        ]);
+      return redirect('/wechat_list');
 
     }
 
