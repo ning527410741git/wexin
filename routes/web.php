@@ -176,5 +176,5 @@ Route::any('/menu_list',"Index\MenuController@menu_list");
 // 带参数的二维码
 Route::any('/wechat_list',"Index\Ajaxindex@wechat_list");
 Route::any('/create_qrcode',"Index\Ajaxindex@create_qrcode");
-
-
+// js-sdk
+Route::any('/get_location',"Index\Ajaxindex@get_location");

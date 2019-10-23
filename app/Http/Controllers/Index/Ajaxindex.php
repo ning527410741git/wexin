@@ -275,4 +275,19 @@ class Ajaxindex extends Controller
 
     }
 
+
+    // js-sdk
+    public function get_location(){
+      $url="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+      $appid='wxff842daa19066eae';
+      $_now_=time();
+      $rand_str=rand(1000,9999).'jssdk'.time();
+      $jsapi_ticket = $this->tools->get_jsapi_ticket();
+      $sign_str='jsapi_ticket='.$jsapi_ticket.'&noncestr='.$rand_str.'&timestamp='.$_now_.'&url='.$url;
+      $signature=sha1($sign_str);
+
+      return view('index.ajax.location',['signature'=>$signature,'appid'=>$appid,'time'=>$_now_,'rand_str'=>$rand_str]);
+
+    }
+
 }

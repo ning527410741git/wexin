@@ -23,6 +23,28 @@
       return $wechat_access_token;
     }
 
+
+    // 获取jsapi_ticket授权
+    public function get_jsapi_ticket(){
+      $key='wechat_jsapi_ticken';
+      if (Cache::has($key)) {
+        // 取缓存
+        $wechat_jsapi_ticket=Cache::get($key);
+        // dd($wechat_access_token);
+      }else{
+        // 取不到 调接口 取缓存
+        $re=file_get_contents('https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token='.$this->get_access_token().'&type=jsapi');
+        // dd($re);
+        $resurl=json_decode($re,1);
+        // dd($resurl);
+        Cache::put($key,$resurl['ticket'],$resurl['expires_in']);
+        $wechat_jsapi_ticket=$resurl['ticket'];
+      }
+
+      return $wechat_jsapi_ticket;
+    }
+
+
     // 素材管理
     public function wechat_curl_file($url,$data){
          $curl = curl_init($url);
