@@ -124,13 +124,6 @@ Route::any('/updateso',"Index\Zsgc@updateso");
 // 执行修改
 Route::any('/updateso_do',"Index\Zsgc@updateso_do");
 // 微信测试
-// 获取access_token授权
-Route::any('/wexin',"Index\Ajaxindex@wexin");
-// 用户详情
-Route::any('/wexinlist',"Index\Ajaxindex@wexinlist");
-// 网路授权
-Route::any('/author',"Index\Ajaxindex@author");
-Route::any('/getUserInfo',"Index\Ajaxindex@getUserInfo");
 // Route::any('/favicon.ico',"Index\Ajaxindex@favicon.ico");
 // git请求
 Route::any('/curl_get',"Index\Ajaxindex@curl_get");
@@ -178,3 +171,13 @@ Route::any('/wechat_list',"Index\Ajaxindex@wechat_list");
 Route::any('/create_qrcode',"Index\Ajaxindex@create_qrcode");
 // js-sdk
 Route::any('/get_location',"Index\Ajaxindex@get_location");
+// 网路授权
+Route::any('/author',"Index\Ajaxindex@author");
+Route::any('/getUserInfo',"Index\Ajaxindex@getUserInfo");
+
+// 获取access_token授权
+Route::any('/wexin',"Index\Ajaxindex@wexin");
+// 用户详情
+Route::any('/wexinlist',"Index\Ajaxindex@wexinlist");
+//油价
+Route::any('/youjia',"Index\Ajaxindex@youjia");
