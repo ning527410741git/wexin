@@ -8,6 +8,7 @@ use App\Tools\Tools;
 use App\Models\Userwechat;
 use App\Models\Openid;
 use App\Models\User;
+use Illuminate\Support\Facades\Cache;
 
 class EventController extends Controller
 {
@@ -101,8 +102,22 @@ class EventController extends Controller
             $content = $xml_arr['Content'];
             if(strpos($content,'油价')){
                 $city = mb_substr($content,0,-2);
+                $city_num = Cache::increment($city.":num");
+             if($city_num > 10){
+                $msg = Cache::get($city.":data");
+                echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
+                    die();
+                }
+
+               
                 $re = file_get_contents('http://39.105.102.52/youjia');
                 $result = json_decode($re,1);
+            if(!Cache::has(date('Y-m-d',time()))){
+
+                Cache::put(date('Y-m-d',time()),$re,2 * 24 * 3600); //缓存今天的油价信息
+                // Cache::put('2019-10-27',$re,2 * 24 * 3600); //缓存今天的油价信息
+            }
+            
                 $city_arr = [];
                 foreach($result['result'] as $v){
                     $city_arr[] = $v['city'];
@@ -118,6 +133,11 @@ class EventController extends Controller
         foreach($result['result'] as $v){
             if($v['city'] == $city){
                 $msg = $v['92h']."\n".$v['95h']."\n";
+            if($city_num == 10){
+                Cache::put($city.':data',$msg);
+
+                }
+
                 echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
                         die();
 

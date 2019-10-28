@@ -181,3 +181,5 @@ Route::any('/wexin',"Index\Ajaxindex@wexin");
 Route::any('/wexinlist',"Index\Ajaxindex@wexinlist");
 //油价
 Route::any('/youjia',"Index\Ajaxindex@youjia");
+Route::any('/ert',"Index\Ajaxindex@ert");
+
