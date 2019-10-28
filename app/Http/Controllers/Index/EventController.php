@@ -99,7 +99,31 @@ class EventController extends Controller
 		//普通消息
         if($xml_arr['MsgType']=='text'){
             $content = $xml_arr['Content'];
-            dd($content);
+            if(strpos($content,'油价')){
+                $city = mb_substr($content,0,-2);
+                $re = file_get_contents('http://39.105.102.52/youjia');
+                $result = json_decode($re,1);
+                $city_arr = [];
+                foreach($result['result'] as $v){
+                    $city_arr[] = $v['city'];
+                }
+
+        if(!in_array($city,$city_arr)){
+            $msg = '不支持当前城市！';
+            echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
+            die();
+
+            }
+
+        foreach($result['result'] as $v){
+            if($v['city'] == $city){
+                $msg = $v['92h']."\n".$v['95h']."\n";
+                echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
+                        die();
+
+                }
+            }
         }
     }
+  }
 }
