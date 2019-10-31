@@ -67,41 +67,40 @@ class EventController extends Controller
 
         // 签到
         if ($xml_arr['MsgType']=='event' && $xml_arr['Event']=='CLICK' && $xml_arr['EventKey']=='sign') {
-             return redirect('/wechat_list');
            // 判断是否签到
-            // $usere_wechat=Userwechat::where(['openid'=>$xml_arr['FromUserName']])->first();
-            // $today = date('Y-m-d',time()); //今天
-            // $last_day = date('Y-m-d',strtotime("-1 days")); //昨天s
-            // if ($usere_wechat->sign_day==$today) {
-            //     //已签到
-            //     $msg="您已签到";
-            //     echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
-            // }else{
-            //     // 根据签到次数加积分
-            //     // 连续签到
-            //     if ($usere_wechat->sign_day==$last_day) {
-            //         // 连续签到
-            //         $sign_num = $usere_wechat->sign_num + 1;
-            //         if($sign_num >= 6){
-            //             $sign_num = 1;
-            //         }
+            $usere_wechat=Userwechat::where(['openid'=>$xml_arr['FromUserName']])->first();
+            $today = date('Y-m-d',time()); //今天
+            $last_day = date('Y-m-d',strtotime("-1 days")); //昨天s
+            if ($usere_wechat->sign_day==$today) {
+                //已签到
+                $msg="您已签到";
+                echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
+            }else{
+                // 根据签到次数加积分
+                // 连续签到
+                if ($usere_wechat->sign_day==$last_day) {
+                    // 连续签到
+                    $sign_num = $usere_wechat->sign_num + 1;
+                    if($sign_num >= 6){
+                        $sign_num = 1;
+                    }
 
-            //         Userwechat::where(['openid'=>$xml_arr['FromUserName']])->update([
-            //             'sign_day'=>$today,
-            //             'sign_num'=>$sign_num,
-            //             'sign_score'=>$usere_wechat->sign_score + 5 * $sign_num
-            //             ]);
+                    Userwechat::where(['openid'=>$xml_arr['FromUserName']])->update([
+                        'sign_day'=>$today,
+                        'sign_num'=>$sign_num,
+                        'sign_score'=>$usere_wechat->sign_score + 5 * $sign_num
+                        ]);
                     
-            //     }else{
-            //          // 非连续签到
-            //          Userwechat::where(['openid'=>$xml_arr['FromUserName']])->update([
-            //             'sign_day'=>$today,
-            //             'sign_num'=>1,
-            //             'sign_score'=>$usere_wechat->sign_score + 5
-            //             ]);
-            //     }
+                }else{
+                     // 非连续签到
+                     Userwechat::where(['openid'=>$xml_arr['FromUserName']])->update([
+                        'sign_day'=>$today,
+                        'sign_num'=>1,
+                        'sign_score'=>$usere_wechat->sign_score + 5
+                        ]);
+                }
 
-            // }
+            }
 
         }
 
