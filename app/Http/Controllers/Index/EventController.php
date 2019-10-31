@@ -73,7 +73,7 @@ class EventController extends Controller
             $last_day = date('Y-m-d',strtotime("-1 days")); //昨天s
             if ($usere_wechat->sign_day==$today) {
                 //已签到
-                $msg=return redirect('/wechat_list');;
+                $msg="您已签到";
                 echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
             }else{
                 // 根据签到次数加积分
