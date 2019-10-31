@@ -50,7 +50,7 @@ class EventController extends Controller
                 }
             }
              $wechat_user=$this->tools->get_wechat_user($xml_arr['FromUserName']);
-             $msg='欢迎'.$wechat_user['nickname'].'同学'.'感谢您的关注';
+             $msg='欢迎久睡成瘾同学感谢您的关注'.'回复1老师姓名'.'回复2老师图片';
              echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
         }
 
