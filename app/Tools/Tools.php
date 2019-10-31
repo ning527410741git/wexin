@@ -104,7 +104,7 @@
      * @param $openid
      * @return mixed
      */
-    public function get_wechat_user($openid)
+     public function get_wechat_user($openid)
     {
         $url = 'https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$this->get_access_token().'&openid='.$openid.'&lang=zh_CN';
         $re = file_get_contents($url);
