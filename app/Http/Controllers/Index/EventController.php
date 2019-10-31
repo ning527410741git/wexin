@@ -29,7 +29,7 @@ class EventController extends Controller
       if($xml_arr['MsgType']=='event' && $xml_arr['Event']=='subscribe'){
             
              $wechat_user = $this->tools->get_wechat_user($xml_arr['FromUserName']);
-             $msg = '欢迎';
+             $msg = '欢迎'.$wechat_user['nickname'].'同学'.'，感谢您的关注';
              echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
         }
 
