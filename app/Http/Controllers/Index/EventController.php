@@ -52,7 +52,7 @@ class EventController extends Controller
 
 
             $nickname=$this->tools->get_wechat_user($xml_arr['FromUserName']);
-            $msg="你好".$nickname['nickname'].",欢迎关注！";
+            $msg="你好".$nickname['nickname'].",欢迎来到！";
             echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
         }
 
@@ -97,15 +97,12 @@ class EventController extends Controller
         }
 
 		//普通消息
-        if($xml_arr['MsgType']=='text' && $xml_arr['Content']=="2"){
+        if($xml_arr['MsgType']=='text' && $xml_arr['Content']=="111"){
         	
             $media_id="NxMp1rpGmAmkRZe4psA49-HnNN2frl-ENJkvSmZZgM8";
 
             echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[image]]></MsgType><Image><MediaId><![CDATA[".$media_id."]]></MediaId></Image></xml>";
 
-        }else if ($xml_arr['MsgType']=='text' && $xml_arr['Content']=="1") {
-            $msg="王亚蒙";
-              echo "<xml><ToUserName><![CDATA[".$xml_arr['FromUserName']."]]></ToUserName><FromUserName><![CDATA[".$xml_arr['ToUserName']."]]></FromUserName><CreateTime>".time()."</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[".$msg."]]></Content></xml>";
         }
     }
 }
