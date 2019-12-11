@@ -89,7 +89,7 @@ $('#user_name').blur(function(){
        		success:function(res){
        			if (res.error==1) {
        				alert(res.msg);
-       				location.href="/loginse";
+       				location.href="/api/info/";
        			}else{
        				return alert(res.msg);
        			}

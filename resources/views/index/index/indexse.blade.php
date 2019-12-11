@@ -39,7 +39,7 @@
 		}
 
 		$.ajax({
-			  headers: {
+		headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         url:"/indexse_do",

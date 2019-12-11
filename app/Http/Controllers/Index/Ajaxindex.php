@@ -313,6 +313,6 @@ class Ajaxindex extends Controller
         }
     }
 
-}
 
- 
+   
+}

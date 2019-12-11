@@ -29,7 +29,7 @@
 
 	</form>
 		<table border="2">
-					<tr>
+		<tr>
 			<td>序号</td>
 			<td>姓名</td>
 			<td>年龄</td>

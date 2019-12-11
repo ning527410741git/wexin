@@ -6,7 +6,7 @@
 @section('content')
 
 
-<form action="{{action('Index\IndexController@add')}}" method="post" enctype="multipart/form-data">
+<form action="/api/info/" method="post" enctype="multipart/form-data">
 	@csrf
   <div class="form-group">
     <label for="title">标题</label>

@@ -48,7 +48,7 @@ class TagController extends Controller
 	// 修改
 	public function tagupdate(Request $request){
 	$data=$request->all();
-// dd($data);
+	// dd($data);
 	return view('index.tag.tagupdate',['tag_id'=>$data['tag_id'],'tag_name'=>$data['tag_name']]);
 	}
 
