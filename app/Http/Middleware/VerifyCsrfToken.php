@@ -19,16 +19,6 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        // 注册
-        '/redsadd',
-        // 登陆
-        '/loginsadd',
-
-        // 加入购物车
-        '/goods_cart',
-        // post请求
-        "post/test",
-        // 微信消息
-        "/event"
+        "*"
     ];
 }
