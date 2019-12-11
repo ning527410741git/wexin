@@ -184,5 +184,8 @@ Route::get('/', function () {
 	Route::any('/ert',"Index\Ajaxindex@ert");
 
 	//js 
-	Route::any('/addGoo',"Admin\GoodsController@addGoo");
+	Route::prefix('/admin')->group(function(){
+		Route::any('/addGoo',"Admin\GoodsController@addGoo");
+	});
+	
 
